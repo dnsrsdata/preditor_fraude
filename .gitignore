@@ -162,3 +162,4 @@ cython_debug/
 # Arquivos extra
 data
 Case Fraude.pdf
+mlruns
