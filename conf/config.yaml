@@ -1,0 +1,17 @@
+params:
+  c: 0.00010412571220790058, 
+  penalty: l2, 
+  solver: saga, 
+  max_iter: 668, 
+  fit_intercept: False, 
+  class_weight: balanced
+  random_state: 840
+
+paths:
+  data_raw: data/raw
+  data_processed: data/processed
+
+arquivos:
+  raw: dados - dados
+  processed: data_fraud
+
