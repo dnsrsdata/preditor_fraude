@@ -163,3 +163,4 @@ cython_debug/
 data
 Case Fraude.pdf
 mlruns
+outputs
