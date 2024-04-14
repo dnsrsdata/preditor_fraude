@@ -54,9 +54,12 @@ se nao era fraudulenta e 1 se era fraudulenta.
 ### Métricas de avaliação
 
 Como a empresa ganha 10% do valor de um pagamento aprovado corretamente e a cada 
-fraude aprovada perdemos 100% do valor do pagamento, optaremos por reduzir a 
-taxa de falsos negativos, que trazem um maior prejuízo. Devido a isso, a métrica 
-de avaliação para o modelo será o Recall.
+fraude aprovada perdemos 100% do valor do pagamento, optaremos por priorizar em 
+reduzir a taxa de falsos negativos, que trazem um maior prejuízo. Devido a isso, 
+a métrica de avaliação principal para o modelo será o Recall. Em complemento,
+também acompanharemos o f1 score weighted, que incluirá a parte dos verdadeiros
+negativos, que são os que trazem lucro para a empresa. Optaremos pelo weighted 
+ao invés do f1 score normal devido ao desbalanceamento das classes.   
 
 Além da precisão na detecção de fraudes, também é importante considerar a 
 eficiência do modelo em termos de tempo de processamento. Por isso, levaremos 
@@ -69,9 +72,10 @@ estabilidade contínuas das operações da Magazine Maria.
 
 ### Melhorias
 - [X] Treinar um modelo superior ao atual.
-- [ ] Testar novos algoritmos.
+- [X] Testar novos algoritmos.
 - [ ] Realizar a criação de uma API.
 - [ ] Implantar um sistema de monitoramento.
+- [ ] Criar um relatório apresentando o problema e a solução criada.
 
 ### Instruções para execução do projeto
 
@@ -96,4 +100,12 @@ poetry install
 
 
 ### Resultados
+Dois modelos foram treinados com o objetivo de substituir o modelo antigo. Segue
+a tabela com os resultados:<br>
+|               | Melhor Threshold | Melhor Recall | Melhor F1 | Latência Média (ms) | Ganho Bruto |  Perdas  | Ganho Líquido | Taxa de Fraude |
+|:-------------:|:----------------:|:-------------:|:---------:|:-------------------:|:-----------:|:--------:|:-------------:|:--------------:|
+| Modelo Antigo |       0.76       |      0.64     |    0.84   |          -          |   65912.19  | 19549.98 |    46362.21   |       1.8      |
+|  Logística_v2 |       0.63       |      0.41     |    0.90   |          20         |   65839.97  | 24752.43 |    41087.54   |      1.34      |
+|    LightGBM   |       0.66       |      0.48     |    0.90   |          39         |   73055.77  | 22947.13 |    50108.64   |      1.38      |
 
+Dados os possíveis ganhos, uma API foi criada com base no modelo que trouxe mais ganhos. Assim, seria possível integrar a API ao sistema de transações do e-commerce. 
