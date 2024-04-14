@@ -90,11 +90,15 @@ git clone https://github.com/dnsrsdata/preditor_fraude
 ```sh
 pip install poetry
 ```
-3. Instale as dependências do projeto:
+3. Inicie o poetry:
+```sh
+poetry init
+```
+4. Instale as dependências do projeto:
 ```sh
 poetry install
 ```
-4. Execute os notebooks
+5. Execute os notebooks
 
 ### Descrição dos arquivos
 
@@ -102,7 +106,7 @@ poetry install
 ### Resultados
 Dois modelos foram treinados com o objetivo de substituir o modelo antigo. Segue
 a tabela com os resultados:<br>
-|               | Melhor Threshold | Melhor Recall | Melhor F1 | Latência Média (ms) | Ganho Bruto |  Perdas  | Ganho Líquido | Taxa de Fraude |
+|               | Melhor Threshold | Melhor Recall | Melhor F1 | Latência Média (ms) | Ganho Bruto |  Perdas  | Ganho Líquido | Taxa de Fraude (%) |
 |:-------------:|:----------------:|:-------------:|:---------:|:-------------------:|:-----------:|:--------:|:-------------:|:--------------:|
 | Modelo Antigo |       0.76       |      0.64     |    0.84   |          -          |   65912.19  | 19549.98 |    46362.21   |       1.8      |
 |  Logística_v2 |       0.63       |      0.41     |    0.90   |          20         |   65839.97  | 24752.43 |    41087.54   |      1.34      |
