@@ -16,6 +16,6 @@ CREATE TABLE IF NOT EXISTS transacoes (
                 entrega_doc_1 INT,
                 entrega_doc_2 TEXT,
                 entrega_doc_3 TEXT,
-                data_compra DATE,
+                data_compra TEXT,
                 valor_compra FLOAT
             );
