@@ -1,5 +1,3 @@
-#TODO: Corrigir a inicialização da API (Database create tables)
-
 import os
 import joblib
 import uvicorn
@@ -24,6 +22,7 @@ username = os.environ.get('USERNAME')
 password = os.environ.get('PASSWORD')
 host = os.environ.get('HOST')
 db_name = os.environ.get('DATABASE')
+port = os.environ.get('PORT')
 
 # Definindo o tipo padrão das variáveis de entrada conforme os dados raw
 class Transacao(BaseModel):
@@ -51,7 +50,7 @@ class Transacao(BaseModel):
 async def armazenar_dados(transacao: dict, predicao: int):
 
     # Conectando ao banco de dados
-    conn = await asyncpg.connect(f"postgresql://{username}:{password}@{host}/{db_name}")
+    conn = await asyncpg.connect(f"postgresql://{username}:{password}@{host}:{port}/{db_name}?sslmode=require")
 
     try:
         # Inserindo os dados da transação na tabela principal
