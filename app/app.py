@@ -22,7 +22,7 @@ username = os.environ.get('USERNAME')
 password = os.environ.get('PASSWORD')
 host = os.environ.get('HOST')
 db_name = os.environ.get('DATABASE')
-port = os.environ.get('PORT')
+port = os.environ.get('PORTA')
 
 # Definindo o tipo padrão das variáveis de entrada conforme os dados raw
 class Transacao(BaseModel):
@@ -122,4 +122,4 @@ async def prever_fraude(transacao: Transacao):
 
 if __name__ == "__main__":
 
-    uvicorn.run(api, host="0.0.0.0", port=8000)
+    uvicorn.run(api, host="0.0.0.0", port=8080)
