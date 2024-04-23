@@ -14,7 +14,7 @@ from src.build_features.preprocess import (
 )
 
 # Iniciando a API
-api = FastAPI()
+app = FastAPI()
 
 # Carregando as variáveis de conexão do BD
 load_dotenv()
@@ -81,7 +81,7 @@ async def armazenar_dados(transacao: dict, predicao: int):
 
 
 # Definindo a API
-@api.post("/prever")
+@app.post("/prever")
 async def prever_fraude(transacao: Transacao):
     
     # Carregando o modelo
@@ -122,4 +122,4 @@ async def prever_fraude(transacao: Transacao):
 
 if __name__ == "__main__":
 
-    uvicorn.run(api, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="0.0.0.0", port=8080)
