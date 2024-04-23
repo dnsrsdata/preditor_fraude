@@ -102,6 +102,36 @@ poetry install
 
 ### Descrição dos arquivos
 
+    - app
+    |- app.py  # Arquivo contendo a api
+    |
+    - conf
+    |- config.yaml  # Arquivo de configuração contendo as rotas de dados
+    |
+    - images
+    |- diagrama_impl.png  # Imagem contendo o diagrama de implantação
+    |
+    - models
+    |- pipe.pkl  # Modelo treinado
+    |
+    - notebooks
+    |- EDA.ipynb  # Notebook contendo a exploração e tratamento inicial dos dados
+    |- model_experimentation.ipynb  # Notebook contendo a experimentação dos modelos
+    |
+    - sql
+    |- create_label.sql  # Comando utilizado para criar a tabela que irá receber as predições do modelo
+    |- create_transaction.sql  # Comando utilizado para criar a tabela que irá receber as novas transações
+    |
+    - src
+    |- build_features
+        |- __init__.py  # Arquivo que transforma a pasta em um módulo Python
+        |- preprocess.py  # Arquivo que aplica o processo inicial de limpeza aos dados
+    |
+    - .dockerignore  # Arquivo contendo as folders para o docker ignorar
+    - .gitignore  # Arquivo contendo as folders para o git ignorar
+    - Dockerfile  # Arquivo contendo as instruções para a criação da imagem do app
+    - README.md  # Arquivo contando informações do projeto
+    - requirements.txt # Arquivo contendo as dependências do projeto
 
 ### Resultados
 Dois modelos foram treinados com o objetivo de substituir o modelo antigo. Segue
