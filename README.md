@@ -114,7 +114,7 @@ a tabela com os resultados:<br>
 
 Dados os possíveis ganhos, uma API foi criada com base no modelo que trouxe mais lucro. Assim, seria possível integrar a API ao sistema de transações do e-commerce. Toda a solução foi  implantada na DigitalOcean. Segue o diagrama de implantação da API e a função de cada componente:
 
-![diagrama](./images/diagrama de implantacao.png)
+![diagrama](images/diagrama_impl.png)
 
 - **Compra**: representa o ato de confirmar a compra por parte do cliente.
 - **API**: representa a API contendo o modelo junto da etapa de pré-processamento.
