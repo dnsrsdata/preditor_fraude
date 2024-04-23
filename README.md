@@ -73,8 +73,8 @@ estabilidade contínuas das operações da Magazine Maria.
 ### Melhorias
 - [X] Treinar um modelo superior ao atual.
 - [X] Testar novos algoritmos.
-- [ ] Realizar a criação de uma API.
-- [ ] Implantar um sistema de monitoramento.
+- [X] Realizar a criação de uma API.
+- [X] Implantar um sistema de monitoramento.
 - [ ] Criar um relatório apresentando o problema e a solução criada.
 
 ### Instruções para execução do projeto
@@ -112,4 +112,41 @@ a tabela com os resultados:<br>
 |  Logística_v2 |       0.63       |      0.41     |    0.90   |          20         |   65839.97  | 24752.43 |    41087.54   |      1.34      |
 |    LightGBM   |       0.66       |      0.48     |    0.90   |          39         |   73055.77  | 22947.13 |    50108.64   |      1.38      |
 
-Dados os possíveis ganhos, uma API foi criada com base no modelo que trouxe mais ganhos. Assim, seria possível integrar a API ao sistema de transações do e-commerce. 
+Dados os possíveis ganhos, uma API foi criada com base no modelo que trouxe mais lucro. Assim, seria possível integrar a API ao sistema de transações do e-commerce. Toda a solução foi  implantada na DigitalOcean. Segue o diagrama de implantação da API e a função de cada componente:
+
+![diagrama](./images/diagrama de implantacao.png)
+
+- **Compra**: representa o ato de confirmar a compra por parte do cliente.
+- **API**: representa a API contendo o modelo junto da etapa de pré-processamento.
+- **PostgreSQL**: banco de dados SQL, onde está armazenado os dados usados para treinar e avaliar o modelo. Também é usado para armazenar as novas solicitações e as labels de previsão.
+- **Metabase**: máquina virtual rodando o Metabase. Aqui, os dados usados no desenvolvimento são comparados com os novos dados a fim de acompanhar o drift nos mesmos. É a camada de monitoramento.
+- **DBeaver**: Gerenciador local usado para se conectar ao PostgreSQL, enviar os dados de desenvolvimento do modelo e criar as tabelas para armazenar as previsões e os dados das transações.
+- **Cientista de Dados** responsável por monitorar e subir os dados de desenvolvimento para o banco de dados.
+
+Com base nisso, temos nossa solução, que pode ser integrada ao sistema de compras da Magazine Maria. Para testes, é possível enviar solicitações através de serviços como o Postman para a seguinte URL: https://clownfish-app-svug3.ondigitalocean.app/prever
+
+Segue um exemplo de solicitação:
+```
+{
+    "score_1": 5,
+    "score_2": 12,
+    "score_3": 15.0,
+    "score_4": 1.8,
+    "score_5": 4.2,
+    "score_6": 3.0,
+    "pais": "Brasil",
+    "score_7": 4,
+    "produto": "PRODUTO A",
+    "categoria_produto": "CATEGORIA A",
+    "score_8": 4.0,
+    "score_9": 5.0,
+    "score_10": 2.5,
+    "entrega_doc_1": 1,
+    "entrega_doc_2": "Y",
+    "entrega_doc_3": "Y",
+    "data_compra": "2020-05-22",
+    "valor_compra": 10.0
+}
+
+```
+Todos os campos receberam os tipos originais, de acordo com os dados raw.
