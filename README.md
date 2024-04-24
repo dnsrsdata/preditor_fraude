@@ -180,3 +180,30 @@ Segue um exemplo de solicitação:
 
 ```
 Todos os campos receberam os tipos originais, de acordo com os dados raw.
+
+### Testes API
+
+Com o intuito de testar a solução, um experimento foi criado no Postman. 
+
+Uma coleção contendo 30 transações fictícias foram criadas, respeitando a distribuição de fraude e não fraude dos dados originais.
+
+10 Usuários Virtuais enviariam 30 requisições aleatórias por segundo para a API. Após esse 1 minuto, 100 usuários passariam a enviar tais solicitações para a API (simulando período de maior atividade), decrescendo até chegar aos 5 minutos de teste.
+
+![diagrama](./images/Resultados_Teste.png)
+
+Como insights principais, temos:
+
+- 8689 mil requisições em 5 minutos.
+- Tempo de resposta menor do que 500ms no período de menor número de requisições.
+- Tempo de resposta acima de que 2500ms no período de maior número de requisições.
+- 23% de taxa de erro.
+
+Vamos checar também o desempenho da máquina usada para implantar a API:
+
+![diagrama](./images/Recursos_DO.png)
+
+Como principais insights, temos:
+- Uso quase de 100% da CPU.
+- Uso de memória abaixo de 40%.
+
+**Vale ressaltar que a API foi implantada em uma VM,o que não é o ideal para o nosso caso, pois uma API que compõe um sistema de compras online deve ser escalável, pois a quantidade de comptas/solicitações oscilam em determinadas datas do ano, então considere que a implantação aqui poderia ser melhor.** 
