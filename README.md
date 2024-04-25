@@ -75,30 +75,39 @@ estabilidade contínuas das operações da Magazine Maria.
 - [X] Testar novos algoritmos.
 - [X] Realizar a criação de uma API.
 - [X] Implantar um sistema de monitoramento.
-- [ ] Criar um relatório apresentando o problema e a solução criada.
 
 ### Instruções para execução do projeto
 
-Esse projeto foi desenvolvido usando o Python 3.10.12. Para executar o projeto,
+Esse projeto foi desenvolvido usando o Python 3.10.12. Para executar a API,
 siga os passos abaixo:
 
 1. Clone o repositório:
 ```sh
 git clone https://github.com/dnsrsdata/preditor_fraude
 ```
-2. Instale o poetry:
+2. Instale as dependências do projeto:
 ```sh
-pip install poetry
+pip install -r requirements.txt
 ```
-3. Inicie o poetry:
+3. Execute o app
 ```sh
-poetry init
+python app/app.py
 ```
-4. Instale as dependências do projeto:
+<br>
+Ou se preferir, construa a aplicação com um container Docker:
+
+1. Clone o repositório:
 ```sh
-poetry install
+git clone https://github.com/dnsrsdata/preditor_fraude
 ```
-5. Execute os notebooks
+2. Construa a imagem:
+```sh
+docker build -t api-fraude
+```
+3. Construa e execute o container:
+```sh
+docker run -d -p 8080:8080 api-fraude
+```
 
 ### Descrição dos arquivos
 
@@ -110,6 +119,9 @@ poetry install
     |
     - images
     |- diagrama_impl.png  # Imagem contendo o diagrama de implantação
+    |- Resultados_Teste.png  # Imagem contendo o resultado referente ao teste da API
+    |- Recursos_DO.png  # Imagem contendo informações sobre a VM durante os testes da API
+    |- dash_monitoramento.gif  # Gif mostrando o dashboard de monitoramento
     |
     - models
     |- pipe.pkl  # Modelo treinado
@@ -153,7 +165,7 @@ Dados os possíveis ganhos, uma API foi criada com base no modelo que trouxe mai
 - **DBeaver**: Gerenciador local usado para se conectar ao PostgreSQL, enviar os dados de desenvolvimento do modelo e criar as tabelas para armazenar as previsões e os dados das transações.
 - **Cientista de Dados** responsável por monitorar e subir os dados de desenvolvimento para o banco de dados.
 
-Com base nisso, temos nossa solução, que pode ser integrada ao sistema de compras da Magazine Maria. Para testes, é possível enviar solicitações através de serviços como o Postman para a seguinte URL: https://clownfish-app-svug3.ondigitalocean.app/prever
+Com base nisso, temos nossa solução, que pode ser integrada ao sistema de compras da Magazine Maria. Para testes, é possível enviar solicitações através de serviços como o Postman para a seguinte URL: https://clownfish-app-svug3.ondigitalocean.app/prever.
 
 Segue um exemplo de solicitação:
 ```
@@ -206,4 +218,21 @@ Como principais insights, temos:
 - Uso quase de 100% da CPU.
 - Uso de memória abaixo de 40%.
 
-**Vale ressaltar que a API foi implantada em uma VM,o que não é o ideal para o nosso caso, pois uma API que compõe um sistema de compras online deve ser escalável, pois a quantidade de comptas/solicitações oscilam em determinadas datas do ano, então considere que a implantação aqui poderia ser melhor.** 
+**Vale ressaltar que a API foi implantada em uma VM,o que não é o ideal para o nosso caso, pois uma API que compõe um sistema de compras online deve ser escalável, já que a quantidade de comptas/solicitações oscilam em determinadas datas do ano.**
+
+### Monitoramento
+
+Para monitorar os novos dados, que são referentes as novas compras que serão feitas, um dashboard comparativo foi criado usando o Metabase. Com ele, é possível analisar distribuições, quantidade de dados ausentes, etc. Com isso, podemos identificar quando treinar um novo modelo para que se adapte as mudanças que os novos dados trarão. Caso queira, você pode acessar o resultado através do link a seguir: http://64.23.154.185:3000/public/dashboard/5d78108f-0d94-46bb-a437-5340f6db8a82.
+
+Confira o resultado abaixo:
+
+![gif](./images/dash_monitoramento.gif)
+
+Examinando o dashboard, podemos tirar as seguintes conclusões:
+- A taxa de previsões para compras fraudulentas é de aproximadamente 40%, 8 vezes mais do que nos dados de treinamento.
+- Há scores desconhecidos pelo modelo na feature score_1.
+- Durante o treinamento, valores ausentes foram detectados nas colunas score_2, score_3, score_4, score_6, score_9 e score_10. Já em produção esse mesmo fenômeno não foi notado.
+- Em produção, as colunas entrega_doc_2 e entrega_doc_3 apresentaram valores ausentes, algo que não aconteceu durante o treinamento do modelo.
+- Devido a mudança na distribuição de algumas variáveis, pode ser necessário treinar um novo modelo a partir de dados novos.
+
+**Dados com valores vazios e distribuições diferentes foram inseridos de propósito em algumas das solicitações enviadas a API**. 
